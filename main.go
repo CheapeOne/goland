@@ -2,15 +2,15 @@ package main
 
 import (
 	"fmt"
-	"github.com/cheapeone/goland/api"
 	"net/http"
 
+	feeds "github.com/cheapeone/goland/api/feeds/handler"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/render"
 )
 
-func newRouter() *chi.Mux {
+func router() *chi.Mux {
 	router := chi.NewRouter()
 	router.Use(
 		render.SetContentType(render.ContentTypeJSON),
@@ -20,19 +20,20 @@ func newRouter() *chi.Mux {
 		middleware.Recoverer,
 	)
 
-	api := api.NewRouter()
-	router.Mount("/v1/api", api)
-
-	return router
-}
-
-func main() {
-	router := newRouter()
+	router.Route("/v1/api", func(r chi.Router) {
+		r.Mount("/feeds", feeds.Router())
+	})
 
 	router.Get("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("welcome"))
 	})
 
+	return router
+}
+
+func main() {
+	appRouter := router()
+
 	fmt.Println("Running server...")
-	http.ListenAndServe(":3000", router)
+	http.ListenAndServe(":3000", appRouter)
 }
