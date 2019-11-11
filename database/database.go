@@ -1,25 +1,18 @@
 package database
 
 import (
-	"fmt"
+	"log"
 
-	"github.com/cheapeone/goland/api/feeds"
-	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/sqlite"
+	"github.com/jmoiron/sqlx"
 )
 
-func New() *gorm.DB {
-	db, err := gorm.Open("sqlite3", "./test.db")
+func Connect() *sqlx.DB {
+	// this Pings the database trying to connect, panics on error
+	// use sqlx.Open() for sql.Open() semantics
+	db, err := sqlx.Connect("postgres", "user=foo dbname=bar sslmode=disable")
 	if err != nil {
-		fmt.Println("storage err: ", err)
+		log.Fatalln(err)
 	}
-	db.DB().SetMaxIdleConns(3)
-	db.LogMode(true)
-	return db
-}
 
-func AutoMigrate(db *gorm.DB) {
-	db.AutoMigrate(
-		&feeds.Feed{},
-	)
+	return db
 }

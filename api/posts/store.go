@@ -1,12 +1,12 @@
 package posts
 
-import "github.com/jinzhu/gorm"
+import "github.com/jmoiron/sqlx"
 
 type PostStore struct {
-	db *gorm.DB
+	db *sqlx.DB
 }
 
-func NewPostStore(db *gorm.DB) *PostStore {
+func NewPostStore(db *sqlx.DB) *PostStore {
 	return &PostStore{db: db}
 }
 

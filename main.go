@@ -11,13 +11,11 @@ import (
 
 func main() {
 	app := echo.New()
-
 	app.GET("/", func(c echo.Context) error {
 		return c.String(http.StatusOK, "Hello, World!")
 	})
 
-	db := database.New()
-	database.AutoMigrate(db)
+	db := database.Connect()
 
 	api := api.NewApi(db)
 	apiRouter := app.Group("/api/v1")

@@ -11,9 +11,12 @@ type Handler struct {
 }
 
 func (h *Handler) AllFeeds(c echo.Context) error {
-	testFeeds := []int{1, 2, 3, 4}
+	feeds, _, err := h.FeedStore.FindAll()
+	if err != nil {
+		return err
+	}
 
-	return c.JSON(http.StatusOK, testFeeds)
+	return c.JSON(http.StatusOK, feeds)
 }
 
 func (h *Handler) GetFeed(c echo.Context) error {

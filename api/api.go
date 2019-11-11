@@ -3,7 +3,7 @@ package api
 import (
 	"github.com/cheapeone/goland/api/feeds"
 	"github.com/cheapeone/goland/api/posts"
-	"github.com/jinzhu/gorm"
+	"github.com/jmoiron/sqlx"
 	"github.com/labstack/echo"
 )
 
@@ -12,7 +12,7 @@ type Api struct {
 	PostStore *posts.PostStore
 }
 
-func NewApi(db *gorm.DB) *Api {
+func NewApi(db *sqlx.DB) *Api {
 	fs := feeds.NewFeedStore(db)
 	ps := posts.NewPostStore(db)
 	return &Api{FeedStore: fs, PostStore: ps}

@@ -1,20 +1,20 @@
 package feeds
 
-import "github.com/jinzhu/gorm"
+import (
+	"github.com/jmoiron/sqlx"
+)
 
 type FeedStore struct {
-	db *gorm.DB
+	db *sqlx.DB
 }
 
-func NewFeedStore(db *gorm.DB) *FeedStore {
+func NewFeedStore(db *sqlx.DB) *FeedStore {
 	return &FeedStore{db: db}
 }
 
 func (fs *FeedStore) FindAll() ([]Feed, int, error) {
 	var feeds []Feed
 	var count int
-	fs.db.Model(&feeds).Count(&count)
-	fs.db.Find(&feeds)
 	return feeds, count, nil
 }
 
