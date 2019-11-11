@@ -4,36 +4,25 @@ import (
 	"fmt"
 	"net/http"
 
-	feeds "github.com/cheapeone/goland/api/feeds/handler"
-	"github.com/go-chi/chi"
-	"github.com/go-chi/chi/middleware"
-	"github.com/go-chi/render"
+	"github.com/cheapeone/goland/api"
+	"github.com/cheapeone/goland/database"
+	"github.com/labstack/echo"
 )
 
-func router() *chi.Mux {
-	router := chi.NewRouter()
-	router.Use(
-		render.SetContentType(render.ContentTypeJSON),
-		middleware.Logger,
-		middleware.DefaultCompress,
-		middleware.RedirectSlashes,
-		middleware.Recoverer,
-	)
-
-	router.Route("/v1/api", func(r chi.Router) {
-		r.Mount("/feeds", feeds.Router())
-	})
-
-	router.Get("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("welcome"))
-	})
-
-	return router
-}
-
 func main() {
-	appRouter := router()
+	app := echo.New()
+
+	app.GET("/", func(c echo.Context) error {
+		return c.String(http.StatusOK, "Hello, World!")
+	})
+
+	db := database.New()
+	database.AutoMigrate(db)
+
+	api := api.NewApi(db)
+	apiRouter := app.Group("/api/v1")
+	api.Register(apiRouter)
 
 	fmt.Println("Running server...")
-	http.ListenAndServe(":3000", appRouter)
+	app.Logger.Fatal(app.Start(":3000"))
 }

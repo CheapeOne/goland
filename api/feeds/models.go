@@ -1,8 +1,13 @@
 package feeds
 
-import "time"
+import (
+	"time"
 
-type Feeds struct {
+	"github.com/jinzhu/gorm"
+)
+
+type Feed struct {
+	gorm.Model
 	ID          int
 	Title       string
 	Description string
