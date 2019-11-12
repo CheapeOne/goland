@@ -11,3 +11,5 @@ Written in Go v1.11
 
 - goose (migration managment) https://github.com/pressly/goose
 
+- godotenv (load env variables) https://github.com/joho/godotenv
+
