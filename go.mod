@@ -10,6 +10,9 @@ require (
 	github.com/labstack/echo v3.3.10+incompatible
 	github.com/labstack/gommon v0.3.0 // indirect
 	github.com/lib/pq v1.2.0 // indirect
+	github.com/pkg/errors v0.8.1 // indirect
+	github.com/pressly/goose v2.6.0+incompatible // indirect
+	github.com/ziutek/mymysql v1.5.4 // indirect
 	golang.org/x/crypto v0.0.0-20191108234033-bd318be0434a // indirect
 	golang.org/x/net v0.0.0-20191109021931-daa7c04131f5 // indirect
 	golang.org/x/sync v0.0.0-20190911185100-cd5d95a43a6e // indirect
@@ -19,3 +22,5 @@ require (
 	golang.org/x/tools/gopls v0.1.7 // indirect
 	golang.org/x/xerrors v0.0.0-20191011141410-1b5146add898 // indirect
 )
+
+go 1.13

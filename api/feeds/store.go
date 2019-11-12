@@ -18,4 +18,4 @@ func (fs *FeedStore) FindAll() ([]Feed, int, error) {
 	return feeds, count, nil
 }
 
-func (fs *FeedStore) Find()
+func (fs *FeedStore) Find() {}

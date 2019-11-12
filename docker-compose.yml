@@ -1,0 +1,19 @@
+version: '3'
+services:
+  api:
+    build: .
+    command: ["go", "run", "main.go"]
+    volumes:
+      - .:/goland
+    ports:
+      - "3000:3000"
+  db:
+    image: postgres
+    volumes:
+      - ./database/pgdata:/pgdata
+    ports:
+      - "5432"
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=docker
+      - PGDATA=/pgdata
