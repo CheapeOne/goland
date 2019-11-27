@@ -26,7 +26,7 @@ func main() {
 	})
 
 	playground := handler.Playground("GraphQL playground", "/query")
-	app.POST("/playground", echo.WrapHandler(playground))
+	app.GET("/playground", echo.WrapHandler(playground))
 
 	graphql := handler.GraphQL(api.NewExecutableSchema(api.Config{Resolvers: &resolvers.Resolver{}}))
 	app.POST("/query", echo.WrapHandler(graphql))

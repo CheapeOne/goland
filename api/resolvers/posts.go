@@ -7,5 +7,7 @@ import (
 )
 
 func (r *queryResolver) Posts(ctx context.Context) ([]*api.Post, error) {
-	panic("not implemented")
+	post := &api.Post{Title: "green"}
+	return []*api.Post{post}, nil
+
 }
