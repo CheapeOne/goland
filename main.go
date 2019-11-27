@@ -5,16 +5,13 @@ import (
 	"net/http"
 
 	"github.com/99designs/gqlgen/handler"
-	"github.com/cheapeone/goland/api"
 	"github.com/cheapeone/goland/api/resolvers"
+	"github.com/cheapeone/goland/database"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
 )
 
 func main() {
-
-	// db := database.Connect()
-
 	app := echo.New()
 
 	// Middleware
@@ -28,7 +25,8 @@ func main() {
 	playground := handler.Playground("GraphQL playground", "/query")
 	app.GET("/playground", echo.WrapHandler(playground))
 
-	graphql := handler.GraphQL(api.NewExecutableSchema(api.Config{Resolvers: &resolvers.Resolver{}}))
+	db := database.Connect()
+	graphql := resolvers.GraphqlHandler(db)
 	app.POST("/query", echo.WrapHandler(graphql))
 
 	fmt.Println("Running server...")

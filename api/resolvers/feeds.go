@@ -11,6 +11,5 @@ func (r *mutationResolver) CreateFeed(ctx context.Context, input models.NewFeed)
 }
 
 func (r *queryResolver) Feeds(ctx context.Context) ([]*models.Feed, error) {
-	feed := &models.Feed{Title: "green"}
-	return []*models.Feed{feed}, nil
+	return r.fs.GetAll()
 }
