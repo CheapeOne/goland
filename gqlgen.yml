@@ -1,0 +1,15 @@
+# .gqlgen.yml example
+#
+# Refer to https://gqlgen.com/config/
+# for detailed .gqlgen.yml documentation.
+
+schema:
+ - "api/**/*.gql"
+exec:
+  filename: api/generated.go
+model:
+  filename: api/models.go
+resolver:
+  filename: api/resolvers/resolvers.go
+  type: Resolver
+autobind: []
