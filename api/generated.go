@@ -12,6 +12,7 @@ import (
 
 	"github.com/99designs/gqlgen/graphql"
 	"github.com/99designs/gqlgen/graphql/introspection"
+	"github.com/cheapeone/goland/api/models"
 	"github.com/vektah/gqlparser"
 	"github.com/vektah/gqlparser/ast"
 )
@@ -50,7 +51,7 @@ type ComplexityRoot struct {
 	}
 
 	Mutation struct {
-		CreateFeed func(childComplexity int, input NewFeed) int
+		CreateFeed func(childComplexity int, input models.NewFeed) int
 	}
 
 	Post struct {
@@ -68,11 +69,11 @@ type ComplexityRoot struct {
 }
 
 type MutationResolver interface {
-	CreateFeed(ctx context.Context, input NewFeed) (*Feed, error)
+	CreateFeed(ctx context.Context, input models.NewFeed) (*models.Feed, error)
 }
 type QueryResolver interface {
-	Feeds(ctx context.Context) ([]*Feed, error)
-	Posts(ctx context.Context) ([]*Post, error)
+	Feeds(ctx context.Context) ([]*models.Feed, error)
+	Posts(ctx context.Context) ([]*models.Post, error)
 }
 
 type executableSchema struct {
@@ -128,7 +129,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.CreateFeed(childComplexity, args["input"].(NewFeed)), true
+		return e.complexity.Mutation.CreateFeed(childComplexity, args["input"].(models.NewFeed)), true
 
 	case "Post.description":
 		if e.complexity.Post.Description == nil {
@@ -284,9 +285,9 @@ type Mutation`},
 func (ec *executionContext) field_Mutation_createFeed_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 NewFeed
+	var arg0 models.NewFeed
 	if tmp, ok := rawArgs["input"]; ok {
-		arg0, err = ec.unmarshalNNewFeed2githubᚗcomᚋcheapeoneᚋgolandᚋapiᚐNewFeed(ctx, tmp)
+		arg0, err = ec.unmarshalNNewFeed2githubᚗcomᚋcheapeoneᚋgolandᚋapiᚋmodelsᚐNewFeed(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -345,7 +346,7 @@ func (ec *executionContext) field___Type_fields_args(ctx context.Context, rawArg
 
 // region    **************************** field.gotpl *****************************
 
-func (ec *executionContext) _Feed_id(ctx context.Context, field graphql.CollectedField, obj *Feed) (ret graphql.Marshaler) {
+func (ec *executionContext) _Feed_id(ctx context.Context, field graphql.CollectedField, obj *models.Feed) (ret graphql.Marshaler) {
 	ctx = ec.Tracer.StartFieldExecution(ctx, field)
 	defer func() {
 		if r := recover(); r != nil {
@@ -382,7 +383,7 @@ func (ec *executionContext) _Feed_id(ctx context.Context, field graphql.Collecte
 	return ec.marshalNID2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Feed_title(ctx context.Context, field graphql.CollectedField, obj *Feed) (ret graphql.Marshaler) {
+func (ec *executionContext) _Feed_title(ctx context.Context, field graphql.CollectedField, obj *models.Feed) (ret graphql.Marshaler) {
 	ctx = ec.Tracer.StartFieldExecution(ctx, field)
 	defer func() {
 		if r := recover(); r != nil {
@@ -419,7 +420,7 @@ func (ec *executionContext) _Feed_title(ctx context.Context, field graphql.Colle
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Feed_description(ctx context.Context, field graphql.CollectedField, obj *Feed) (ret graphql.Marshaler) {
+func (ec *executionContext) _Feed_description(ctx context.Context, field graphql.CollectedField, obj *models.Feed) (ret graphql.Marshaler) {
 	ctx = ec.Tracer.StartFieldExecution(ctx, field)
 	defer func() {
 		if r := recover(); r != nil {
@@ -453,7 +454,7 @@ func (ec *executionContext) _Feed_description(ctx context.Context, field graphql
 	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Feed_selfUrl(ctx context.Context, field graphql.CollectedField, obj *Feed) (ret graphql.Marshaler) {
+func (ec *executionContext) _Feed_selfUrl(ctx context.Context, field graphql.CollectedField, obj *models.Feed) (ret graphql.Marshaler) {
 	ctx = ec.Tracer.StartFieldExecution(ctx, field)
 	defer func() {
 		if r := recover(); r != nil {
@@ -516,7 +517,7 @@ func (ec *executionContext) _Mutation_createFeed(ctx context.Context, field grap
 	ctx = ec.Tracer.StartFieldResolverExecution(ctx, rctx)
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().CreateFeed(rctx, args["input"].(NewFeed))
+		return ec.resolvers.Mutation().CreateFeed(rctx, args["input"].(models.NewFeed))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -528,13 +529,13 @@ func (ec *executionContext) _Mutation_createFeed(ctx context.Context, field grap
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*Feed)
+	res := resTmp.(*models.Feed)
 	rctx.Result = res
 	ctx = ec.Tracer.StartFieldChildExecution(ctx)
-	return ec.marshalNFeed2ᚖgithubᚗcomᚋcheapeoneᚋgolandᚋapiᚐFeed(ctx, field.Selections, res)
+	return ec.marshalNFeed2ᚖgithubᚗcomᚋcheapeoneᚋgolandᚋapiᚋmodelsᚐFeed(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Post_id(ctx context.Context, field graphql.CollectedField, obj *Post) (ret graphql.Marshaler) {
+func (ec *executionContext) _Post_id(ctx context.Context, field graphql.CollectedField, obj *models.Post) (ret graphql.Marshaler) {
 	ctx = ec.Tracer.StartFieldExecution(ctx, field)
 	defer func() {
 		if r := recover(); r != nil {
@@ -571,7 +572,7 @@ func (ec *executionContext) _Post_id(ctx context.Context, field graphql.Collecte
 	return ec.marshalNID2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Post_title(ctx context.Context, field graphql.CollectedField, obj *Post) (ret graphql.Marshaler) {
+func (ec *executionContext) _Post_title(ctx context.Context, field graphql.CollectedField, obj *models.Post) (ret graphql.Marshaler) {
 	ctx = ec.Tracer.StartFieldExecution(ctx, field)
 	defer func() {
 		if r := recover(); r != nil {
@@ -608,7 +609,7 @@ func (ec *executionContext) _Post_title(ctx context.Context, field graphql.Colle
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Post_description(ctx context.Context, field graphql.CollectedField, obj *Post) (ret graphql.Marshaler) {
+func (ec *executionContext) _Post_description(ctx context.Context, field graphql.CollectedField, obj *models.Post) (ret graphql.Marshaler) {
 	ctx = ec.Tracer.StartFieldExecution(ctx, field)
 	defer func() {
 		if r := recover(); r != nil {
@@ -642,7 +643,7 @@ func (ec *executionContext) _Post_description(ctx context.Context, field graphql
 	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Post_url(ctx context.Context, field graphql.CollectedField, obj *Post) (ret graphql.Marshaler) {
+func (ec *executionContext) _Post_url(ctx context.Context, field graphql.CollectedField, obj *models.Post) (ret graphql.Marshaler) {
 	ctx = ec.Tracer.StartFieldExecution(ctx, field)
 	defer func() {
 		if r := recover(); r != nil {
@@ -679,7 +680,7 @@ func (ec *executionContext) _Post_url(ctx context.Context, field graphql.Collect
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Post_feed(ctx context.Context, field graphql.CollectedField, obj *Post) (ret graphql.Marshaler) {
+func (ec *executionContext) _Post_feed(ctx context.Context, field graphql.CollectedField, obj *models.Post) (ret graphql.Marshaler) {
 	ctx = ec.Tracer.StartFieldExecution(ctx, field)
 	defer func() {
 		if r := recover(); r != nil {
@@ -707,10 +708,10 @@ func (ec *executionContext) _Post_feed(ctx context.Context, field graphql.Collec
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*Feed)
+	res := resTmp.(*models.Feed)
 	rctx.Result = res
 	ctx = ec.Tracer.StartFieldChildExecution(ctx)
-	return ec.marshalOFeed2ᚖgithubᚗcomᚋcheapeoneᚋgolandᚋapiᚐFeed(ctx, field.Selections, res)
+	return ec.marshalOFeed2ᚖgithubᚗcomᚋcheapeoneᚋgolandᚋapiᚋmodelsᚐFeed(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_feeds(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -744,10 +745,10 @@ func (ec *executionContext) _Query_feeds(ctx context.Context, field graphql.Coll
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]*Feed)
+	res := resTmp.([]*models.Feed)
 	rctx.Result = res
 	ctx = ec.Tracer.StartFieldChildExecution(ctx)
-	return ec.marshalNFeed2ᚕᚖgithubᚗcomᚋcheapeoneᚋgolandᚋapiᚐFeed(ctx, field.Selections, res)
+	return ec.marshalNFeed2ᚕᚖgithubᚗcomᚋcheapeoneᚋgolandᚋapiᚋmodelsᚐFeed(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_posts(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -781,10 +782,10 @@ func (ec *executionContext) _Query_posts(ctx context.Context, field graphql.Coll
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]*Post)
+	res := resTmp.([]*models.Post)
 	rctx.Result = res
 	ctx = ec.Tracer.StartFieldChildExecution(ctx)
-	return ec.marshalNPost2ᚕᚖgithubᚗcomᚋcheapeoneᚋgolandᚋapiᚐPost(ctx, field.Selections, res)
+	return ec.marshalNPost2ᚕᚖgithubᚗcomᚋcheapeoneᚋgolandᚋapiᚋmodelsᚐPost(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query___type(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -2013,8 +2014,8 @@ func (ec *executionContext) ___Type_ofType(ctx context.Context, field graphql.Co
 
 // region    **************************** input.gotpl *****************************
 
-func (ec *executionContext) unmarshalInputNewFeed(ctx context.Context, obj interface{}) (NewFeed, error) {
-	var it NewFeed
+func (ec *executionContext) unmarshalInputNewFeed(ctx context.Context, obj interface{}) (models.NewFeed, error) {
+	var it models.NewFeed
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -2041,7 +2042,7 @@ func (ec *executionContext) unmarshalInputNewFeed(ctx context.Context, obj inter
 
 var feedImplementors = []string{"Feed"}
 
-func (ec *executionContext) _Feed(ctx context.Context, sel ast.SelectionSet, obj *Feed) graphql.Marshaler {
+func (ec *executionContext) _Feed(ctx context.Context, sel ast.SelectionSet, obj *models.Feed) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.RequestContext, sel, feedImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -2111,7 +2112,7 @@ func (ec *executionContext) _Mutation(ctx context.Context, sel ast.SelectionSet)
 
 var postImplementors = []string{"Post"}
 
-func (ec *executionContext) _Post(ctx context.Context, sel ast.SelectionSet, obj *Post) graphql.Marshaler {
+func (ec *executionContext) _Post(ctx context.Context, sel ast.SelectionSet, obj *models.Post) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.RequestContext, sel, postImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -2467,11 +2468,11 @@ func (ec *executionContext) marshalNBoolean2bool(ctx context.Context, sel ast.Se
 	return res
 }
 
-func (ec *executionContext) marshalNFeed2githubᚗcomᚋcheapeoneᚋgolandᚋapiᚐFeed(ctx context.Context, sel ast.SelectionSet, v Feed) graphql.Marshaler {
+func (ec *executionContext) marshalNFeed2githubᚗcomᚋcheapeoneᚋgolandᚋapiᚋmodelsᚐFeed(ctx context.Context, sel ast.SelectionSet, v models.Feed) graphql.Marshaler {
 	return ec._Feed(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNFeed2ᚕᚖgithubᚗcomᚋcheapeoneᚋgolandᚋapiᚐFeed(ctx context.Context, sel ast.SelectionSet, v []*Feed) graphql.Marshaler {
+func (ec *executionContext) marshalNFeed2ᚕᚖgithubᚗcomᚋcheapeoneᚋgolandᚋapiᚋmodelsᚐFeed(ctx context.Context, sel ast.SelectionSet, v []*models.Feed) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -2495,7 +2496,7 @@ func (ec *executionContext) marshalNFeed2ᚕᚖgithubᚗcomᚋcheapeoneᚋgoland
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNFeed2ᚖgithubᚗcomᚋcheapeoneᚋgolandᚋapiᚐFeed(ctx, sel, v[i])
+			ret[i] = ec.marshalNFeed2ᚖgithubᚗcomᚋcheapeoneᚋgolandᚋapiᚋmodelsᚐFeed(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -2508,7 +2509,7 @@ func (ec *executionContext) marshalNFeed2ᚕᚖgithubᚗcomᚋcheapeoneᚋgoland
 	return ret
 }
 
-func (ec *executionContext) marshalNFeed2ᚖgithubᚗcomᚋcheapeoneᚋgolandᚋapiᚐFeed(ctx context.Context, sel ast.SelectionSet, v *Feed) graphql.Marshaler {
+func (ec *executionContext) marshalNFeed2ᚖgithubᚗcomᚋcheapeoneᚋgolandᚋapiᚋmodelsᚐFeed(ctx context.Context, sel ast.SelectionSet, v *models.Feed) graphql.Marshaler {
 	if v == nil {
 		if !ec.HasError(graphql.GetResolverContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -2532,15 +2533,15 @@ func (ec *executionContext) marshalNID2string(ctx context.Context, sel ast.Selec
 	return res
 }
 
-func (ec *executionContext) unmarshalNNewFeed2githubᚗcomᚋcheapeoneᚋgolandᚋapiᚐNewFeed(ctx context.Context, v interface{}) (NewFeed, error) {
+func (ec *executionContext) unmarshalNNewFeed2githubᚗcomᚋcheapeoneᚋgolandᚋapiᚋmodelsᚐNewFeed(ctx context.Context, v interface{}) (models.NewFeed, error) {
 	return ec.unmarshalInputNewFeed(ctx, v)
 }
 
-func (ec *executionContext) marshalNPost2githubᚗcomᚋcheapeoneᚋgolandᚋapiᚐPost(ctx context.Context, sel ast.SelectionSet, v Post) graphql.Marshaler {
+func (ec *executionContext) marshalNPost2githubᚗcomᚋcheapeoneᚋgolandᚋapiᚋmodelsᚐPost(ctx context.Context, sel ast.SelectionSet, v models.Post) graphql.Marshaler {
 	return ec._Post(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNPost2ᚕᚖgithubᚗcomᚋcheapeoneᚋgolandᚋapiᚐPost(ctx context.Context, sel ast.SelectionSet, v []*Post) graphql.Marshaler {
+func (ec *executionContext) marshalNPost2ᚕᚖgithubᚗcomᚋcheapeoneᚋgolandᚋapiᚋmodelsᚐPost(ctx context.Context, sel ast.SelectionSet, v []*models.Post) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -2564,7 +2565,7 @@ func (ec *executionContext) marshalNPost2ᚕᚖgithubᚗcomᚋcheapeoneᚋgoland
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNPost2ᚖgithubᚗcomᚋcheapeoneᚋgolandᚋapiᚐPost(ctx, sel, v[i])
+			ret[i] = ec.marshalNPost2ᚖgithubᚗcomᚋcheapeoneᚋgolandᚋapiᚋmodelsᚐPost(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -2577,7 +2578,7 @@ func (ec *executionContext) marshalNPost2ᚕᚖgithubᚗcomᚋcheapeoneᚋgoland
 	return ret
 }
 
-func (ec *executionContext) marshalNPost2ᚖgithubᚗcomᚋcheapeoneᚋgolandᚋapiᚐPost(ctx context.Context, sel ast.SelectionSet, v *Post) graphql.Marshaler {
+func (ec *executionContext) marshalNPost2ᚖgithubᚗcomᚋcheapeoneᚋgolandᚋapiᚋmodelsᚐPost(ctx context.Context, sel ast.SelectionSet, v *models.Post) graphql.Marshaler {
 	if v == nil {
 		if !ec.HasError(graphql.GetResolverContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -2850,11 +2851,11 @@ func (ec *executionContext) marshalOBoolean2ᚖbool(ctx context.Context, sel ast
 	return ec.marshalOBoolean2bool(ctx, sel, *v)
 }
 
-func (ec *executionContext) marshalOFeed2githubᚗcomᚋcheapeoneᚋgolandᚋapiᚐFeed(ctx context.Context, sel ast.SelectionSet, v Feed) graphql.Marshaler {
+func (ec *executionContext) marshalOFeed2githubᚗcomᚋcheapeoneᚋgolandᚋapiᚋmodelsᚐFeed(ctx context.Context, sel ast.SelectionSet, v models.Feed) graphql.Marshaler {
 	return ec._Feed(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalOFeed2ᚖgithubᚗcomᚋcheapeoneᚋgolandᚋapiᚐFeed(ctx context.Context, sel ast.SelectionSet, v *Feed) graphql.Marshaler {
+func (ec *executionContext) marshalOFeed2ᚖgithubᚗcomᚋcheapeoneᚋgolandᚋapiᚋmodelsᚐFeed(ctx context.Context, sel ast.SelectionSet, v *models.Feed) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}

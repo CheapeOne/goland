@@ -8,3 +8,6 @@ RUN go mod download
 
 COPY . .
 
+# hot reloading
+RUN ["go", "get", "github.com/pilu/fresh"]
+CMD [ "fresh" ]

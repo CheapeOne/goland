@@ -3,11 +3,10 @@ package resolvers
 import (
 	"context"
 
-	"github.com/cheapeone/goland/api"
+	"github.com/cheapeone/goland/api/models"
 )
 
-func (r *queryResolver) Posts(ctx context.Context) ([]*api.Post, error) {
-	post := &api.Post{Title: "green"}
-	return []*api.Post{post}, nil
-
+func (r *queryResolver) Posts(ctx context.Context) ([]*models.Post, error) {
+	post := &models.Post{Title: "green"}
+	return []*models.Post{post}, nil
 }

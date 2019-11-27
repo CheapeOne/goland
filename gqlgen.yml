@@ -8,7 +8,8 @@ schema:
 exec:
   filename: api/generated.go
 model:
-  filename: api/models.go
+  filename: api/models/models.go
+  package: models
 resolver:
   filename: api/resolvers/resolvers.go
   type: Resolver

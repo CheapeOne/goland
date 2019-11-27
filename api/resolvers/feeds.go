@@ -3,13 +3,14 @@ package resolvers
 import (
 	"context"
 
-	"github.com/cheapeone/goland/api"
+	"github.com/cheapeone/goland/api/models"
 )
 
-func (r *mutationResolver) CreateFeed(ctx context.Context, input api.NewFeed) (*api.Feed, error) {
+func (r *mutationResolver) CreateFeed(ctx context.Context, input models.NewFeed) (*models.Feed, error) {
 	panic("not implemented")
 }
 
-func (r *queryResolver) Feeds(ctx context.Context) ([]*api.Feed, error) {
-	panic("not implemented")
+func (r *queryResolver) Feeds(ctx context.Context) ([]*models.Feed, error) {
+	feed := &models.Feed{Title: "green"}
+	return []*models.Feed{feed}, nil
 }
