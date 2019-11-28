@@ -9,5 +9,5 @@ RUN go mod download
 COPY . .
 
 # hot reloading
-RUN ["go", "get", "github.com/pilu/fresh"]
-CMD [ "fresh" ]
+RUN go get -u github.com/githubnemo/CompileDaemon
+CMD CompileDaemon -command="./goland"
