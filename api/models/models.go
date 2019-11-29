@@ -20,3 +20,9 @@ type Post struct {
 	URL         string  `json:"url"`
 	Feed        *Feed   `json:"feed"`
 }
+
+type User struct {
+	ID       string `json:"id"`
+	Email    string `json:"email"`
+	Password string `json:"password"`
+}

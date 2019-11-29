@@ -14,8 +14,8 @@ import (
 // THIS CODE IS A STARTING POINT ONLY. IT WILL NOT BE UPDATED WITH SCHEMA CHANGES.
 
 type Resolver struct {
-	fs *feeds.FeedService
-	ps *posts.PostService
+	fs *feeds.FeedStore
+	ps *posts.PostStore
 }
 
 type mutationResolver struct{ *Resolver }
@@ -29,13 +29,10 @@ func (r *Resolver) Query() api.QueryResolver {
 	return &queryResolver{r}
 }
 
-func GraphqlHandler(db *sqlx.DB) http.HandlerFunc {
-	feedService := feeds.NewFeedService(db)
-	postService := posts.NewPostService(db)
-	resolver := &Resolver{
-		fs: feedService,
-		ps: postService,
-	}
+func NewGraphqlHandler(db *sqlx.DB) http.HandlerFunc {
+	fs := &feeds.FeedStore{DB: db}
+	ps := &posts.PostStore{DB: db}
+	resolver := &Resolver{fs, ps}
 
 	return handler.GraphQL(api.NewExecutableSchema(api.Config{Resolvers: resolver}))
 }
